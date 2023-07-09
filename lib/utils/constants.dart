@@ -1,0 +1,2 @@
+const String authToken =
+    """Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4ZjYxN2ZhMzIzY2VhNjJhNzE1NjUyMDc1NTg2Y2ExZiIsInN1YiI6IjY0ODU0NDcyYjZjMjY0MDBjN2YxNmUyMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.fPqjdfvQeywlVn8cJgC2YdYFba7jqDUYsifIN0qNgKk""";
