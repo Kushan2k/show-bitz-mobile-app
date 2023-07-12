@@ -57,6 +57,7 @@ class MovieDetailsScreen extends StatelessWidget {
                 }
 
                 var item = snapshot.data;
+                double rate = item!['vote_average'];
                 String imgUrl =
                     "https://image.tmdb.org/t/p/original${item!['poster_path']}";
                 return SingleChildScrollView(
@@ -117,8 +118,16 @@ class MovieDetailsScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              item!['vote_average'],
-                              style: TextStyle(color: Colors.white54),
+                              double.parse(rate.toString()).toStringAsFixed(1),
+                              style: const TextStyle(color: Colors.white54),
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.only(left: 10),
+                              child: Icon(
+                                Icons.star_rate,
+                                color: Colors.yellow,
+                                size: 25,
+                              ),
                             ),
                           ],
                         ),
