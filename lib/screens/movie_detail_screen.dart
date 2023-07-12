@@ -40,7 +40,8 @@ class MovieDetailsScreen extends StatelessWidget {
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.done:
-                if (snapshot.data == null) {
+                var item = snapshot.data;
+                if (item == null) {
                   return const Center(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -56,14 +57,12 @@ class MovieDetailsScreen extends StatelessWidget {
                   );
                 }
 
-                var item = snapshot.data;
-                double rate = item!['vote_average'];
+                double rate = item['vote_average'];
                 String imgUrl =
-                    "https://image.tmdb.org/t/p/original${item!['poster_path']}";
+                    "https://image.tmdb.org/t/p/original${item['poster_path']}";
                 return SingleChildScrollView(
                   child: Center(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Stack(children: [
                           CachedNetworkImage(
@@ -114,13 +113,9 @@ class MovieDetailsScreen extends StatelessWidget {
                           ),
                         ]),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text(
-                              double.parse(rate.toString()).toStringAsFixed(1),
-                              style: const TextStyle(color: Colors.white54),
-                            ),
                             const Padding(
                               padding: EdgeInsets.only(left: 10),
                               child: Icon(
@@ -129,12 +124,41 @@ class MovieDetailsScreen extends StatelessWidget {
                                 size: 25,
                               ),
                             ),
+                            Text(
+                              double.parse(rate.toString()).toStringAsFixed(1),
+                              style: const TextStyle(color: Colors.white54),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8),
+                              child: Container(
+                                decoration:
+                                    const BoxDecoration(color: Colors.white30),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  child: Text(
+                                    item['original_language'],
+                                    style:
+                                        const TextStyle(color: Colors.white70),
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(item['release_date'],
+                                style: const TextStyle(
+                                  color: Colors.white60,
+                                )),
                           ],
                         ),
                         Padding(
                           padding: const EdgeInsets.all(10),
                           child: Text(
-                            item!['overview'],
+                            item['overview'],
                             style: const TextStyle(
                               color: Colors.white54,
                               fontSize: 16,

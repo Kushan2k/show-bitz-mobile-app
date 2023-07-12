@@ -3,13 +3,6 @@ import 'package:flutter/material.dart';
 AppBar createAppBar({required String title}) {
   return AppBar(
     backgroundColor: Colors.black,
-    leading: const IconButton(
-      icon: Icon(
-        Icons.menu,
-        color: Colors.white,
-      ),
-      onPressed: null,
-    ),
     title: Text(
       title,
       style: const TextStyle(

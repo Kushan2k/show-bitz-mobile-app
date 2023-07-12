@@ -9,11 +9,13 @@ class MovieCard extends StatelessWidget {
   // final String img;
   final int index;
   final Movie movie;
+  final bool now;
 
   const MovieCard({
     super.key,
     required this.movie,
     required this.index,
+    required this.now,
   });
 
   @override
