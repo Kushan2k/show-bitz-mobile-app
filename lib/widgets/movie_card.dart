@@ -1,14 +1,18 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:show_bitz/screens/movie_detail_screen.dart';
+
+import 'package:show_bitz/utils/movie.dart';
 
 class MovieCard extends StatelessWidget {
-  final String title;
-  final String img;
+  // final String title;
+  // final String img;
   final int index;
+  final Movie movie;
 
   const MovieCard({
     super.key,
-    required this.title,
-    required this.img,
+    required this.movie,
     required this.index,
   });
 
@@ -16,7 +20,11 @@ class MovieCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print('taped');
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => MovieDetailsScreen(
+            movie: movie,
+          ),
+        ));
       },
       child: SizedBox(
         width: MediaQuery.of(context).size.width / 2,
@@ -32,17 +40,33 @@ class MovieCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.network(
-                img,
-                alignment: Alignment.center,
-                width: 150,
+              CachedNetworkImage(
+                width: 170,
+                fit: BoxFit.fill,
+                imageUrl: movie.imgUrl,
+                progressIndicatorBuilder: (context, url, downloadProgress) {
+                  return Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Colors.greenAccent,
+                            value: downloadProgress.progress),
+                      ),
+                    ),
+                  );
+                },
+                errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
               Padding(
                 padding: const EdgeInsets.only(
                   top: 5,
                 ),
                 child: Text(
-                  title,
+                  movie.title,
                   textAlign: TextAlign.start,
                   style: const TextStyle(
                     overflow: TextOverflow.ellipsis,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 Widget bottomNavBar({required int index, required Function tap}) {
-  final active_color = Colors.deepPurpleAccent;
+  const activeColor = Colors.green;
   return BottomNavigationBar(
     backgroundColor: Colors.transparent,
     type: BottomNavigationBarType.fixed,
@@ -18,7 +18,7 @@ Widget bottomNavBar({required int index, required Function tap}) {
         activeIcon: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: active_color,
+            color: activeColor,
           ),
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           child: const Icon(
@@ -33,7 +33,7 @@ Widget bottomNavBar({required int index, required Function tap}) {
         activeIcon: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: active_color,
+            color: activeColor,
           ),
           padding: const EdgeInsets.all(10),
           child: const Icon(
@@ -47,7 +47,7 @@ Widget bottomNavBar({required int index, required Function tap}) {
         activeIcon: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: active_color,
+            color: activeColor,
           ),
           padding: const EdgeInsets.all(10),
           child: const Icon(
@@ -61,7 +61,7 @@ Widget bottomNavBar({required int index, required Function tap}) {
         activeIcon: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: active_color,
+            color: activeColor,
           ),
           padding: const EdgeInsets.all(10),
           child: const Icon(
