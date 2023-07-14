@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:show_bitz/screens/home_screen.dart';
+import 'package:show_bitz/screens/series_screen.dart';
+import 'package:show_bitz/screens/threanding_screen.dart';
 import 'package:show_bitz/utils/colors.dart';
 import 'package:show_bitz/widgets/bottom_appbar.dart';
 import 'package:show_bitz/widgets/topbar.dart';
@@ -14,8 +16,8 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final pages = const [
     HomeScreen(),
-    Text("Hello 2"),
-    Text("Hello 3"),
+    ThreandingScreen(),
+    SeriesScreen(),
     Text("Hello 4"),
   ];
   int index = 0;

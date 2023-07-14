@@ -28,7 +28,7 @@ Widget bottomNavBar({required int index, required Function tap}) {
         ),
       ),
       BottomNavigationBarItem(
-        icon: const Icon(Icons.video_call),
+        icon: const Icon(Icons.star),
         label: '',
         activeIcon: Container(
           decoration: BoxDecoration(
@@ -37,12 +37,12 @@ Widget bottomNavBar({required int index, required Function tap}) {
           ),
           padding: const EdgeInsets.all(10),
           child: const Icon(
-            Icons.video_call,
+            Icons.star,
           ),
         ),
       ),
       BottomNavigationBarItem(
-        icon: const Icon(Icons.bookmark),
+        icon: const Icon(Icons.video_collection),
         label: '',
         activeIcon: Container(
           decoration: BoxDecoration(
@@ -51,7 +51,7 @@ Widget bottomNavBar({required int index, required Function tap}) {
           ),
           padding: const EdgeInsets.all(10),
           child: const Icon(
-            Icons.bookmark,
+            Icons.video_collection,
           ),
         ),
       ),

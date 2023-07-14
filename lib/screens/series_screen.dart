@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:show_bitz/services/movie_service.dart';
-import 'package:show_bitz/utils/movie.dart';
+import 'package:show_bitz/services/series_service.dart';
+import 'package:show_bitz/utils/series.dart';
 import 'package:show_bitz/utils/styles.dart';
+import 'package:show_bitz/utils/video.dart';
 import 'package:show_bitz/widgets/movie_card.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class SeriesScreen extends StatefulWidget {
+  const SeriesScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<SeriesScreen> createState() => _SeriesScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _SeriesScreenState extends State<SeriesScreen> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -28,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Movies",
+                      "Tv shows",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 26,
@@ -38,12 +39,58 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ],
                 ),
+                const SizedBox(
+                  height: 15,
+                ),
                 Text(
-                  "Now Playing",
+                  "On Air Today",
                   style: headerStyle,
                 ),
                 FutureBuilder(
-                  future: MovieService.loadMovies(),
+                  future: SeriesService.loadToday(),
+                  builder: (context, snapshot) {
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.done:
+                        if (snapshot.data == null) {
+                          return const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text("Opps! loading failed",
+                                  style: TextStyle(color: Colors.white60))
+                            ],
+                          );
+                        }
+                        return SizedBox(
+                          height: 330,
+                          child: ListView.builder(
+                            itemCount: snapshot.data?.length,
+                            itemBuilder: (context, index) {
+                              Video s = Series.fromMap(snapshot.data?[index]);
+
+                              return MovieCard(
+                                movie: s,
+                                index: index,
+                                now: false,
+                              );
+                            },
+                            scrollDirection: Axis.horizontal,
+                          ),
+                        );
+                      case ConnectionState.waiting:
+                        return showProgressIndicator();
+
+                      default:
+                        return showProgressIndicator();
+                    }
+                  },
+                ),
+                Text(
+                  "This Week",
+                  style: headerStyle,
+                ),
+                FutureBuilder(
+                  future: SeriesService.loadThisWeekThreanding(),
                   builder: (context, snapshot) {
                     switch (snapshot.connectionState) {
                       case ConnectionState.done:
@@ -65,55 +112,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: ListView.builder(
                             itemCount: snapshot.data?.length,
                             itemBuilder: (context, index) {
-                              Movie m = Movie.fromMap(snapshot.data?[index]);
-
+                              Series s = Series.fromMap(snapshot.data?[index]);
                               return MovieCard(
-                                movie: m,
+                                movie: s,
                                 index: index,
                                 now: true,
-                              );
-                            },
-                            scrollDirection: Axis.horizontal,
-                          ),
-                        );
-                      case ConnectionState.waiting:
-                        return showProgressIndicator();
-
-                      default:
-                        return showProgressIndicator();
-                    }
-                  },
-                ),
-                Text(
-                  "Upcoming",
-                  style: headerStyle,
-                ),
-                FutureBuilder(
-                  future: MovieService.loadUpCommingMovie(),
-                  builder: (context, snapshot) {
-                    switch (snapshot.connectionState) {
-                      case ConnectionState.done:
-                        if (snapshot.data == null) {
-                          return const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text("Opps! loading failed",
-                                  style: TextStyle(color: Colors.white60))
-                            ],
-                          );
-                        }
-                        return SizedBox(
-                          height: 330,
-                          child: ListView.builder(
-                            itemCount: snapshot.data?.length,
-                            itemBuilder: (context, index) {
-                              Movie m = Movie.fromMap(snapshot.data?[index]);
-
-                              return MovieCard(
-                                movie: m,
-                                index: index,
-                                now: false,
                               );
                             },
                             scrollDirection: Axis.horizontal,
@@ -132,7 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   style: headerStyle,
                 ),
                 FutureBuilder(
-                  future: MovieService.loadPopularMovies(),
+                  future: SeriesService.loadPopularSeries(),
                   builder: (context, snapshot) {
                     switch (snapshot.connectionState) {
                       case ConnectionState.done:
@@ -151,7 +154,50 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: ListView.builder(
                             itemCount: snapshot.data?.length,
                             itemBuilder: (context, index) {
-                              Movie m = Movie.fromMap(snapshot.data?[index]);
+                              Video s = Series.fromMap(snapshot.data?[index]);
+
+                              return MovieCard(
+                                movie: s,
+                                index: index,
+                                now: false,
+                              );
+                            },
+                            scrollDirection: Axis.horizontal,
+                          ),
+                        );
+                      case ConnectionState.waiting:
+                        return showProgressIndicator();
+
+                      default:
+                        return showProgressIndicator();
+                    }
+                  },
+                ),
+                Text(
+                  "Top Rated",
+                  style: headerStyle,
+                ),
+                FutureBuilder(
+                  future: SeriesService.loadTopRated(),
+                  builder: (context, snapshot) {
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.done:
+                        if (snapshot.data == null) {
+                          return const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text("Opps! loading failed",
+                                  style: TextStyle(color: Colors.white60))
+                            ],
+                          );
+                        }
+                        return SizedBox(
+                          height: 340,
+                          child: ListView.builder(
+                            itemCount: snapshot.data?.length,
+                            itemBuilder: (context, index) {
+                              Series m = Series.fromMap(snapshot.data?[index]);
 
                               return MovieCard(
                                 movie: m,

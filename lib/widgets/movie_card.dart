@@ -2,13 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:show_bitz/screens/movie_detail_screen.dart';
 
-import 'package:show_bitz/utils/movie.dart';
+import 'package:show_bitz/utils/video.dart';
 
 class MovieCard extends StatelessWidget {
   // final String title;
   // final String img;
   final int index;
-  final Movie movie;
+  final Video movie;
   final bool now;
 
   const MovieCard({
@@ -22,11 +22,11 @@ class MovieCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => MovieDetailsScreen(
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+          return MovieDetailsScreen(
             movie: movie,
-          ),
-        ));
+          );
+        }));
       },
       child: SizedBox(
         width: MediaQuery.of(context).size.width / 2,
