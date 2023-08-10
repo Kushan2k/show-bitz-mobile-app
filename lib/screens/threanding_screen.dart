@@ -49,7 +49,7 @@ class _ThreandingScreenState extends State<ThreandingScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Thrending this week",
+                  "TRENDING".capitalize(),
                   style: headerStyle,
                 ),
                 FutureBuilder(

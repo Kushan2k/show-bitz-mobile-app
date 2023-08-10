@@ -56,7 +56,7 @@ Widget bottomNavBar({required int index, required Function tap}) {
         ),
       ),
       BottomNavigationBarItem(
-        icon: const Icon(Icons.list),
+        icon: const Icon(Icons.people_alt_outlined),
         label: '',
         activeIcon: Container(
           decoration: BoxDecoration(
@@ -65,7 +65,7 @@ Widget bottomNavBar({required int index, required Function tap}) {
           ),
           padding: const EdgeInsets.all(10),
           child: const Icon(
-            Icons.list,
+            Icons.people,
           ),
         ),
       ),

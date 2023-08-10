@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:show_bitz/screens/actors_screen.dart';
 import 'package:show_bitz/screens/home_screen.dart';
 import 'package:show_bitz/screens/series_screen.dart';
 import 'package:show_bitz/screens/threanding_screen.dart';
@@ -18,7 +19,7 @@ class _MyAppState extends State<MyApp> {
     HomeScreen(),
     ThreandingScreen(),
     SeriesScreen(),
-    Text("Hello 4"),
+    ActorsScreen(),
   ];
   int index = 0;
 
