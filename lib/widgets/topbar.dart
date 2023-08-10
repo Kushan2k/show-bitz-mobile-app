@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-AppBar createAppBar({required String title}) {
+AppBar createAppBar({required String title, required BuildContext context}) {
   return AppBar(
     backgroundColor: Colors.black,
     title: Text(
@@ -17,15 +17,19 @@ AppBar createAppBar({required String title}) {
         fontSize: 25,
       ),
     ),
-    actions: const [
+    actions: [
       IconButton(
-        onPressed: null,
-        icon: Icon(
+        onPressed: () {
+          // Navigator.of(context).push(MaterialPageRoute(
+          //   builder: (context) => const SearchScreen(),
+          // ));
+        },
+        icon: const Icon(
           Icons.search_outlined,
           color: Colors.white,
         ),
       ),
-      IconButton(
+      const IconButton(
         onPressed: null,
         icon: Icon(
           Icons.notifications,

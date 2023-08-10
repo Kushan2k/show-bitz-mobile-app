@@ -56,8 +56,18 @@ class _SeriesScreenState extends State<SeriesScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text("Opps! loading failed",
-                                  style: TextStyle(color: Colors.white60))
+                              SizedBox(
+                                height: 250,
+                                child: Center(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: 10),
+                                    child: Text(
+                                      "Opps! loading failed\nPlease make sure your connection is up",
+                                      style: TextStyle(color: Colors.white60),
+                                    ),
+                                  ),
+                                ),
+                              )
                             ],
                           );
                         }
@@ -99,9 +109,14 @@ class _SeriesScreenState extends State<SeriesScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text(
-                                "Opps! loading failed",
-                                style: TextStyle(color: Colors.white60),
+                              SizedBox(
+                                height: 250,
+                                child: Center(
+                                  child: Text(
+                                    "Opps! loading failed",
+                                    style: TextStyle(color: Colors.white60),
+                                  ),
+                                ),
                               )
                             ],
                           );
@@ -144,8 +159,15 @@ class _SeriesScreenState extends State<SeriesScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text("Opps! loading failed",
-                                  style: TextStyle(color: Colors.white60))
+                              SizedBox(
+                                height: 250,
+                                child: Center(
+                                  child: Text(
+                                    "Opps! loading failed",
+                                    style: TextStyle(color: Colors.white60),
+                                  ),
+                                ),
+                              )
                             ],
                           );
                         }
@@ -187,8 +209,15 @@ class _SeriesScreenState extends State<SeriesScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text("Opps! loading failed",
-                                  style: TextStyle(color: Colors.white60))
+                              SizedBox(
+                                height: 250,
+                                child: Center(
+                                  child: Text(
+                                    "Opps! loading failed",
+                                    style: TextStyle(color: Colors.white60),
+                                  ),
+                                ),
+                              )
                             ],
                           );
                         }

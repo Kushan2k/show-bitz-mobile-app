@@ -40,6 +40,7 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         appBar: createAppBar(
           title: "Show Bitz",
+          context: context,
         ),
         bottomNavigationBar: bottomNavBar(
           index: index,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:show_bitz/services/movie_service.dart';
 import 'package:show_bitz/utils/movie.dart';
 import 'package:show_bitz/utils/styles.dart';
@@ -52,9 +53,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text(
-                                "Opps! loading failed",
-                                style: TextStyle(color: Colors.white60),
+                              SizedBox(
+                                height: 250,
+                                child: Center(
+                                  child: Text(
+                                    "Opps! loading failed\nPlease make sure your connection is up",
+                                    style: TextStyle(color: Colors.white60),
+                                  ),
+                                ),
                               )
                             ],
                           );
@@ -98,8 +104,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text("Opps! loading failed",
-                                  style: TextStyle(color: Colors.white60))
+                              SizedBox(
+                                height: 250,
+                                child: Center(
+                                  child: Text(
+                                    "Opps! loading failed",
+                                    style: TextStyle(color: Colors.white60),
+                                  ),
+                                ),
+                              )
                             ],
                           );
                         }
@@ -141,8 +154,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text("Opps! loading failed",
-                                  style: TextStyle(color: Colors.white60))
+                              SizedBox(
+                                height: 250,
+                                child: Center(
+                                  child: Text(
+                                    "Opps! loading failed",
+                                    style: TextStyle(color: Colors.white60),
+                                  ),
+                                ),
+                              )
                             ],
                           );
                         }
