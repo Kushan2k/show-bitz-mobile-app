@@ -4,7 +4,7 @@ class Actor {
   final String name;
   final int id;
   final String type;
-  final String? img;
+  final String img;
   // final List<Map<String, dynamic>> knownFor;
 
   const Actor(this.name, this.id, this.type, this.img);
