@@ -74,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Movie m = Movie.fromMap(snapshot.data?[index]);
 
                               return MovieCard(
-                                movie: m,
+                                video: m,
                                 index: index,
                                 now: true,
                               );
@@ -124,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Movie m = Movie.fromMap(snapshot.data?[index]);
 
                               return MovieCard(
-                                movie: m,
+                                video: m,
                                 index: index,
                                 now: false,
                               );
@@ -174,7 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Movie m = Movie.fromMap(snapshot.data?[index]);
 
                               return MovieCard(
-                                movie: m,
+                                video: m,
                                 index: index,
                                 now: false,
                               );

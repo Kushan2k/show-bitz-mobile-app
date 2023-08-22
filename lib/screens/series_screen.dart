@@ -79,7 +79,7 @@ class _SeriesScreenState extends State<SeriesScreen> {
                               Video s = Series.fromMap(snapshot.data?[index]);
 
                               return MovieCard(
-                                movie: s,
+                                video: s,
                                 index: index,
                                 now: false,
                               );
@@ -129,7 +129,7 @@ class _SeriesScreenState extends State<SeriesScreen> {
                             itemBuilder: (context, index) {
                               Series s = Series.fromMap(snapshot.data?[index]);
                               return MovieCard(
-                                movie: s,
+                                video: s,
                                 index: index,
                                 now: true,
                               );
@@ -179,7 +179,7 @@ class _SeriesScreenState extends State<SeriesScreen> {
                               Video s = Series.fromMap(snapshot.data?[index]);
 
                               return MovieCard(
-                                movie: s,
+                                video: s,
                                 index: index,
                                 now: false,
                               );
@@ -229,7 +229,7 @@ class _SeriesScreenState extends State<SeriesScreen> {
                               Series m = Series.fromMap(snapshot.data?[index]);
 
                               return MovieCard(
-                                movie: m,
+                                video: m,
                                 index: index,
                                 now: false,
                               );

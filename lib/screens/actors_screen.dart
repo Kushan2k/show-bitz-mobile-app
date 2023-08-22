@@ -44,44 +44,54 @@ class _ActorsScreenState extends State<ActorsScreen> {
                       itemCount: snapshot.data?.length,
                       padding: const EdgeInsets.all(10),
                       physics: const BouncingScrollPhysics(
-                        decelerationRate: ScrollDecelerationRate.normal,
+                        decelerationRate: ScrollDecelerationRate.fast,
                       ),
+                      cacheExtent: 10,
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        crossAxisSpacing: 20,
-                        mainAxisSpacing: 30,
+                        crossAxisSpacing: 15,
+                        mainAxisSpacing: 20,
                       ),
                       itemBuilder: (context, index) {
                         Actor actor = Actor.fromMap(snapshot.data![index]);
 
-                        return SizedBox(
-                          width: MediaQuery.of(context).size.width / 2 - 40,
+                        return Container(
+                          padding: const EdgeInsets.all(10),
                           child: Column(
                             children: [
-                              CachedNetworkImage(
-                                imageUrl: actor.img,
-                                fit: BoxFit.contain,
-                                progressIndicatorBuilder:
-                                    (context, url, downloadProgress) {
-                                  return Center(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(5),
-                                      child: SizedBox(
-                                        width: 20,
-                                        height: 20,
-                                        child: CircularProgressIndicator(
-                                            strokeWidth: 2,
-                                            color: Colors.greenAccent,
-                                            value: downloadProgress.progress),
+                              SizedBox(
+                                // aspectRatio: 1.0,
+                                height: MediaQuery.of(context).size.height / 3,
+                                child: CachedNetworkImage(
+                                  imageUrl: actor.img,
+                                  fit: BoxFit.contain,
+                                  progressIndicatorBuilder:
+                                      (context, url, downloadProgress) {
+                                    return Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5),
+                                        child: Center(
+                                          child: CircularProgressIndicator(
+                                              strokeWidth: 2,
+                                              color: Colors.greenAccent,
+                                              value: downloadProgress.progress),
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                },
-                                errorWidget: (context, url, error) =>
-                                    const Icon(Icons.error),
+                                    );
+                                  },
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(Icons.error),
+                                ),
                               ),
-                              Text(actor.name.capitalize()),
+                              const SizedBox(height: 8),
+                              Text(
+                                actor.name.capitalize(),
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
                             ],
                           ),
                         );
@@ -117,39 +127,3 @@ Widget showProgressIndicator() {
     ),
   );
 }
-
-// ListView.builder(
-//                       itemBuilder: (context, index) {
-//                         var item = snapshot.data?[index];
-
-//                         if (item == null) {
-//                           return const Row(
-//                             mainAxisAlignment: MainAxisAlignment.center,
-//                             crossAxisAlignment: CrossAxisAlignment.center,
-//                             children: [
-//                               SizedBox(
-//                                 height: 250,
-//                                 child: Center(
-//                                   child: Text(
-//                                     "Opps! loading failed",
-//                                     style: TextStyle(color: Colors.white60),
-//                                   ),
-//                                 ),
-//                               )
-//                             ],
-//                           );
-//                         }
-
-//                         Actor acotr = Actor.fromMap(item);
-
-//                         print(acotr.img);
-
-//                         return const Text(
-//                           "hello",
-//                           style: TextStyle(
-//                             color: Colors.white,
-//                           ),
-//                         );
-//                       },
-//                       itemCount: snapshot.data?.length,
-//                     ),

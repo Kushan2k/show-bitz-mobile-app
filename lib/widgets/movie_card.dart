@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:show_bitz/screens/movie_detail_screen.dart';
+import 'package:show_bitz/utils/type.dart';
 
 import 'package:show_bitz/utils/video.dart';
 
@@ -8,12 +9,12 @@ class MovieCard extends StatelessWidget {
   // final String title;
   // final String img;
   final int index;
-  final Video movie;
+  final Video video;
   final bool now;
 
   const MovieCard({
     super.key,
-    required this.movie,
+    required this.video,
     required this.index,
     required this.now,
   });
@@ -23,9 +24,16 @@ class MovieCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-          return MovieDetailsScreen(
-            movie: movie,
-          );
+          switch (video.type) {
+            case Types.movie:
+              return MovieDetailsScreen(
+                movie: video,
+              );
+            case Types.series:
+              return showAlertDialog(context);
+            default:
+              return showAlertDialog(context);
+          }
         }));
       },
       child: SizedBox(
@@ -45,7 +53,7 @@ class MovieCard extends StatelessWidget {
               CachedNetworkImage(
                 width: 170,
                 fit: BoxFit.fill,
-                imageUrl: movie.imgUrl,
+                imageUrl: video.imgUrl,
                 progressIndicatorBuilder: (context, url, downloadProgress) {
                   return Center(
                     child: Padding(
@@ -68,7 +76,7 @@ class MovieCard extends StatelessWidget {
                   top: 5,
                 ),
                 child: Text(
-                  movie.title,
+                  video.title,
                   textAlign: TextAlign.start,
                   style: const TextStyle(
                     overflow: TextOverflow.ellipsis,
@@ -85,4 +93,32 @@ class MovieCard extends StatelessWidget {
       ),
     );
   }
+}
+
+AlertDialog showAlertDialog(BuildContext context) {
+  return (AlertDialog(
+    alignment: Alignment.center,
+    content: const Text(
+        "we are currently in uder development proccess of this action please check for the updates regularly!"),
+    iconColor: Colors.red,
+    surfaceTintColor: Colors.grey[400],
+    icon: const Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+      Icon(
+        Icons.info_sharp,
+        size: 26,
+      )
+    ]),
+    title: const Text(
+      "Under Development",
+      textAlign: TextAlign.start,
+    ),
+    actions: [
+      TextButton(
+        onPressed: () => Navigator.of(context).pop(),
+        child: const Text("Ok"),
+      ),
+    ],
+    actionsPadding: const EdgeInsets.all(10),
+    elevation: 10,
+  ));
 }
