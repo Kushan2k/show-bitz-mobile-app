@@ -2,11 +2,25 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:show_bitz/services/movie_service.dart';
 import 'package:show_bitz/utils/colors.dart';
+import 'package:show_bitz/utils/type.dart';
 import 'package:show_bitz/utils/video.dart';
+
+import 'package:url_launcher/url_launcher.dart';
 
 class MovieDetailsScreen extends StatelessWidget {
   final Video movie;
   const MovieDetailsScreen({super.key, required this.movie});
+
+  void lunchWeb(String _url) async {
+    try {
+      Uri url = Uri.parse(_url);
+      bool canlunch = await canLaunchUrl(url);
+      print(canlunch);
+      await launchUrl(url, mode: LaunchMode.externalApplication);
+    } catch (er) {
+      print(er);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +49,7 @@ class MovieDetailsScreen extends StatelessWidget {
                 }
 
                 double rate = item['vote_average'];
-                String imgUrl =
-                    "https://image.tmdb.org/t/p/original${item['poster_path']}";
+
                 return SingleChildScrollView(
                   child: Center(
                     child: Column(
@@ -45,7 +58,7 @@ class MovieDetailsScreen extends StatelessWidget {
                           CachedNetworkImage(
                             alignment: Alignment.center,
                             width: MediaQuery.of(context).size.width,
-                            imageUrl: imgUrl,
+                            imageUrl: movie.imgUrl,
                             progressIndicatorBuilder:
                                 (context, url, downloadProgress) {
                               return Center(
@@ -123,14 +136,31 @@ class MovieDetailsScreen extends StatelessWidget {
                             )
                           ],
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(item['release_date'],
-                                style: const TextStyle(
-                                  color: Colors.white60,
-                                )),
-                          ],
+                        Padding(
+                          padding: const EdgeInsets.only(right: 5.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              TextButton(
+                                  onPressed: () => lunchWeb(item['homepage']),
+                                  child: const Text(
+                                    "Visit ",
+                                    style: TextStyle(
+                                      color: Colors.lightGreen,
+                                    ),
+                                  )),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                  movie.type == Types.movie
+                                      ? item['release_date']
+                                      : item['first_air_date'],
+                                  style: const TextStyle(
+                                    color: Colors.white60,
+                                  )),
+                            ],
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(10),
@@ -142,6 +172,172 @@ class MovieDetailsScreen extends StatelessWidget {
                             ),
                           ),
                         ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        SizedBox(
+                          height: 50,
+                          child: ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: item['genres']!.map<Widget>((item) {
+                              return Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color:
+                                          const Color.fromARGB(255, 77, 77, 77),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(5),
+                                    child: Text(
+                                      item['name'] as String,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                        movie.type == Types.series
+                            ? Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      "Seasons ${List.of(item['seasons']).length}",
+                                      style: const TextStyle(
+                                        color: Colors.white54,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : const SizedBox(
+                                height: 2,
+                              ),
+                        movie.type == Types.series
+                            ? Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 10, right: 10, top: 5, bottom: 40),
+                                child: SizedBox(
+                                  height: 300,
+                                  child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: List.of(item['seasons']).length,
+                                    itemBuilder: (context, index) {
+                                      var season = item['seasons'][index];
+                                      String url;
+
+                                      if (season['poster_path'] != null) {
+                                        url =
+                                            "https://image.tmdb.org/t/p/original${season['poster_path']}";
+                                      } else {
+                                        url =
+                                            'https://www.movienewz.com/img/films/poster-holder.jpg';
+                                      }
+
+                                      return Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 16.0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            CachedNetworkImage(
+                                              width: 150,
+                                              fit: BoxFit.fill,
+                                              imageUrl: url,
+                                              progressIndicatorBuilder:
+                                                  (context, url,
+                                                      downloadProgress) {
+                                                return Center(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(5),
+                                                    child: SizedBox(
+                                                      width: 20,
+                                                      height: 20,
+                                                      child: CircularProgressIndicator(
+                                                          strokeWidth: 2,
+                                                          color: Colors
+                                                              .greenAccent,
+                                                          value:
+                                                              downloadProgress
+                                                                  .progress),
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      const Icon(Icons.error),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 5.0),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    season['name'],
+                                                    style: const TextStyle(
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                  Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment.end,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        const Padding(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  left: 10),
+                                                          child: Icon(
+                                                            Icons.star_rate,
+                                                            color:
+                                                                Colors.yellow,
+                                                            size: 20,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          double.parse(season[
+                                                                      'vote_average']
+                                                                  .toString())
+                                                              .toStringAsFixed(
+                                                                  1),
+                                                          style:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .white),
+                                                        ),
+                                                      ]),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              )
+                            : const SizedBox(
+                                height: 2,
+                              )
                       ],
                     ),
                   ),

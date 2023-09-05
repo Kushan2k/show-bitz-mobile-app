@@ -30,7 +30,10 @@ class MovieCard extends StatelessWidget {
                 movie: video,
               );
             case Types.series:
-              return showAlertDialog(context);
+              return MovieDetailsScreen(
+                movie: video,
+              );
+
             default:
               return showAlertDialog(context);
           }

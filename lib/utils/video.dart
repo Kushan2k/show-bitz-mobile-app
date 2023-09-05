@@ -5,11 +5,13 @@ abstract class Video {
   final String imgUrl;
   final int id;
   final Types type;
+  final List<dynamic>? genres;
 
   const Video({
     required this.title,
     required this.imgUrl,
     required this.id,
     required this.type,
+    this.genres,
   });
 }
