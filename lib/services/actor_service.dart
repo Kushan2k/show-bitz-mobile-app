@@ -18,8 +18,51 @@ abstract class ActorService {
         return null;
       }
       List<dynamic> resp = jsonDecode(response.body)['results'];
-      print(resp);
+
       return resp;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  static Future<Map<String, dynamic>?> loadActorDetails(
+      {required int id}) async {
+    var url = "https://api.themoviedb.org/3/person/$id?language=en-US";
+
+    try {
+      var response = await http.get(Uri.parse(url), headers: <String, String>{
+        HttpHeaders.acceptHeader: 'application/json',
+        HttpHeaders.authorizationHeader: authToken,
+      });
+
+      if (response.statusCode != 200) {
+        return null;
+      }
+      var resp = jsonDecode(response.body);
+      // print(resp);
+
+      return resp;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  static Future getImages({required int id}) async {
+    var url = "https://api.themoviedb.org/3/person/$id/images";
+
+    try {
+      var response = await http.get(Uri.parse(url), headers: <String, String>{
+        HttpHeaders.acceptHeader: 'application/json',
+        HttpHeaders.authorizationHeader: authToken,
+      });
+
+      if (response.statusCode != 200) {
+        return null;
+      }
+      var resp = jsonDecode(response.body);
+      print(resp['profiles']);
+
+      return resp['profiles'];
     } catch (error) {
       return null;
     }

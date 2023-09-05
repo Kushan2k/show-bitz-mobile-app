@@ -18,7 +18,7 @@ class Series extends Video {
       imgUrl: url,
       id: map['id'],
       type: Types.series,
-      genres: map?['genre_ids'],
+      genres: map['genre_ids'],
     );
   }
 }

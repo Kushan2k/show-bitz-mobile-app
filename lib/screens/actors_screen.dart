@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:show_bitz/screens/threanding_screen.dart';
+import 'package:show_bitz/screens/person_details_screen.dart';
 import 'package:show_bitz/services/actor_service.dart';
 import 'package:show_bitz/utils/actor.dart';
 import 'package:show_bitz/utils/styles.dart';
@@ -40,6 +40,7 @@ class _ActorsScreenState extends State<ActorsScreen> {
                 case ConnectionState.done:
                   return SizedBox(
                     height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
                     child: GridView.builder(
                       itemCount: snapshot.data?.length,
                       padding: const EdgeInsets.all(10),
@@ -50,49 +51,39 @@ class _ActorsScreenState extends State<ActorsScreen> {
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        crossAxisSpacing: 15,
+                        crossAxisSpacing: 20,
                         mainAxisSpacing: 20,
                       ),
                       itemBuilder: (context, index) {
                         Actor actor = Actor.fromMap(snapshot.data![index]);
 
-                        return Container(
-                          padding: const EdgeInsets.all(10),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                // aspectRatio: 1.0,
-                                height: MediaQuery.of(context).size.height / 3,
-                                child: CachedNetworkImage(
-                                  imageUrl: actor.img,
-                                  fit: BoxFit.contain,
-                                  progressIndicatorBuilder:
-                                      (context, url, downloadProgress) {
-                                    return Center(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(5),
-                                        child: Center(
-                                          child: CircularProgressIndicator(
-                                              strokeWidth: 2,
-                                              color: Colors.greenAccent,
-                                              value: downloadProgress.progress),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  errorWidget: (context, url, error) =>
-                                      const Icon(Icons.error),
-                                ),
+                        return GestureDetector(
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => PersonDetailsScreen(
+                                id: actor.id,
                               ),
-                              const SizedBox(height: 8),
-                              Text(
-                                actor.name.capitalize(),
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                  fontSize: 16,
+                            ),
+                          ),
+                          child: CachedNetworkImage(
+                            imageUrl: actor.img,
+                            fit: BoxFit.cover,
+                            progressIndicatorBuilder:
+                                (context, url, downloadProgress) {
+                              return Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(5),
+                                  child: Center(
+                                    child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                        color: Colors.greenAccent,
+                                        value: downloadProgress.progress),
+                                  ),
                                 ),
-                              ),
-                            ],
+                              );
+                            },
+                            errorWidget: (context, url, error) =>
+                                const Icon(Icons.error),
                           ),
                         );
                       },

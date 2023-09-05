@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:show_bitz/screens/search_screen.dart';
 
 AppBar createAppBar({required String title, required BuildContext context}) {
   return AppBar(
@@ -20,9 +21,9 @@ AppBar createAppBar({required String title, required BuildContext context}) {
     actions: [
       IconButton(
         onPressed: () {
-          // Navigator.of(context).push(MaterialPageRoute(
-          //   builder: (context) => const SearchScreen(),
-          // ));
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => const SearchScreen(),
+          ));
         },
         icon: const Icon(
           Icons.search_outlined,

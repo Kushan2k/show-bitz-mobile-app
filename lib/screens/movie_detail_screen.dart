@@ -11,14 +11,41 @@ class MovieDetailsScreen extends StatelessWidget {
   final Video movie;
   const MovieDetailsScreen({super.key, required this.movie});
 
-  void lunchWeb(String _url) async {
+  void lunchWeb(String _url, BuildContext context) async {
     try {
       Uri url = Uri.parse(_url);
       bool canlunch = await canLaunchUrl(url);
-      print(canlunch);
-      await launchUrl(url, mode: LaunchMode.externalApplication);
+
+      if (canlunch) {
+        await launchUrl(url, mode: LaunchMode.externalApplication);
+      } else {
+        AlertDialog(
+          title: const Text("Failed to open url"),
+          icon: const Icon(
+            Icons.error_outline,
+            size: 27,
+          ),
+          actions: [
+            TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text("Cancel"))
+          ],
+        );
+      }
     } catch (er) {
-      print(er);
+      AlertDialog(
+        title: const Text("Failed to open url"),
+        content: Text(er.toString()),
+        icon: const Icon(
+          Icons.error_outline,
+          size: 27,
+        ),
+        actions: [
+          TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text("Cancel"))
+        ],
+      );
     }
   }
 
@@ -142,7 +169,8 @@ class MovieDetailsScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               TextButton(
-                                  onPressed: () => lunchWeb(item['homepage']),
+                                  onPressed: () =>
+                                      lunchWeb(item['homepage'], context),
                                   child: const Text(
                                     "Visit ",
                                     style: TextStyle(
