@@ -1,4 +1,4 @@
-# show_bitz
+# Show_bitz
 
 A new Flutter project.
 
@@ -14,3 +14,49 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+# Show Bitz
+
+### movie browsing mobile application
+
+<hr>
+
+<p align='center'>
+
+![App Screenshot](https://drive.google.com/uc?id=12VZDswOwYhZ2yA1dm1Vndygu56pPpCqU)
+
+</p>
+
+## Description
+
+android mobile application created using flutter mobile application development framework using TMDB API for the informations and additional external flutter packages
+
+## Features
+
+- show trending moves/shows/actors of the week
+- sort by current rating
+- upto date informations
+
+## Installation
+
+make a clone of the repository
+
+<p style='color:red'>
+sensitive information like api keys,tokens files are not included in the source code.
+</p>
+
+```bash
+# Example installation commands if applicable
+flutter pub get
+flutter run
+
+```
+
+## License
+
+MIT Licence
+
+## Contributing
+
+like to contribute and help me improve
+fork the repo and help me improve my implementations
