@@ -230,6 +230,70 @@ class MovieDetailsScreen extends StatelessWidget {
                             }).toList(),
                           ),
                         ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        item['vurl'] != null
+                            ? Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: GestureDetector(
+                                  onTap: () => lunchWeb(item['vurl'], context),
+                                  child: Stack(children: [
+                                    CachedNetworkImage(
+                                      alignment: Alignment.center,
+                                      width: MediaQuery.of(context).size.width,
+                                      imageUrl: item['tumbnail'],
+                                      progressIndicatorBuilder:
+                                          (context, url, downloadProgress) {
+                                        return Center(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(5),
+                                            child: Column(
+                                              children: [
+                                                SizedBox(
+                                                  width: 20,
+                                                  height: 20,
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                          strokeWidth: 2,
+                                                          color: Colors
+                                                              .greenAccent,
+                                                          value:
+                                                              downloadProgress
+                                                                  .progress),
+                                                ),
+                                                const Text(
+                                                  "Loading.",
+                                                  style: TextStyle(
+                                                      color: Colors.white60),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      errorWidget: (context, url, error) =>
+                                          const Icon(Icons.error),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    Positioned(
+                                      top: 5,
+                                      right: 5,
+                                      child: SizedBox(
+                                        width: 60,
+                                        height: 50,
+                                        child: Image.asset(
+                                          'assets/ylogo.png',
+                                          fit: BoxFit.contain,
+                                        ),
+                                      ),
+                                    ),
+                                  ]),
+                                ),
+                              )
+                            : const SizedBox(
+                                height: 2,
+                              ),
                         movie.type == Types.series
                             ? Padding(
                                 padding: const EdgeInsets.all(10),

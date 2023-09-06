@@ -10,15 +10,15 @@ abstract class MovieService {
   //get movie details by id
   static Future<Map<String, dynamic>?> loadMovieDetails(
       {required Video movie}) async {
-    var url;
+    var urld;
     if (movie.type == Types.movie) {
-      url = "https://api.themoviedb.org/3/movie/${movie.id}?language=en-US";
+      urld = "https://api.themoviedb.org/3/movie/${movie.id}?language=en-US";
     } else if (movie.type == Types.series) {
-      url = "https://api.themoviedb.org/3/tv/${movie.id}?language=en-US";
+      urld = "https://api.themoviedb.org/3/tv/${movie.id}?language=en-US";
     }
 
     try {
-      var response = await http.get(Uri.parse(url), headers: <String, String>{
+      var response = await http.get(Uri.parse(urld), headers: <String, String>{
         HttpHeaders.acceptHeader: 'application/json',
         HttpHeaders.authorizationHeader: authToken,
       });
@@ -26,10 +26,17 @@ abstract class MovieService {
       if (response.statusCode != 200) {
         return null;
       }
-      var resp = jsonDecode(response.body);
+      Map<String, dynamic> resp = jsonDecode(response.body);
       // print(resp);
+      final data = await getTrailer(id: movie.id);
 
-      return resp;
+      if (data == null) {
+        return resp;
+      } else {
+        resp.addAll({'vurl': data[0], 'tumbnail': data[1]});
+
+        return resp;
+      }
     } catch (error) {
       return null;
     }
@@ -90,6 +97,27 @@ abstract class MovieService {
       }
       List<dynamic> resp = jsonDecode(response.body)['results'];
       return resp;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  static Future<List<String>?> getTrailer({required int id}) async {
+    final u =
+        'https://api.kinocheck.de/movies?tmdb_id=$id&language=en&categories=Trailer,-Clip';
+    try {
+      var response = await http.get(Uri.parse(u), headers: <String, String>{
+        HttpHeaders.acceptHeader: 'application/json',
+      });
+
+      if (response.statusCode != 200) {
+        return null;
+      }
+      var resp = jsonDecode(response.body)['videos'][0];
+      String vid = resp['youtube_video_id'];
+      String tumbnail = resp['thumbnail'];
+      String vurl = 'https://www.youtube.com/watch?v=$vid';
+      return [vurl, tumbnail];
     } catch (error) {
       return null;
     }
