@@ -42,3 +42,10 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+
+lib/services/actor_service.dart
+lib/services/movie_service.dart
+
+lib/utils/constants.dart 
+lib/utils/video.dart
