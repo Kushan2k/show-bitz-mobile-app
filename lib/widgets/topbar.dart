@@ -21,9 +21,14 @@ AppBar createAppBar({required String title, required BuildContext context}) {
     actions: [
       IconButton(
         onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => const SearchScreen(),
-          ));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SearchScreen(),
+              ));
+          // Navigator.of(context).push(MaterialPageRoute(
+          //   builder: (context) => const SearchScreen(),
+          // ));
         },
         icon: const Icon(
           Icons.search_outlined,

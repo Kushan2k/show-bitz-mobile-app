@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:show_bitz/services/movie_service.dart';
 import 'package:show_bitz/utils/colors.dart';
 import 'package:show_bitz/utils/type.dart';
@@ -122,6 +123,31 @@ class MovieDetailsScreen extends StatelessWidget {
                                             BorderRadius.circular(10)),
                                     child: const Icon(
                                       Icons.arrow_back,
+                                      color: Colors.green,
+                                      size: 27,
+                                    ),
+                                  )),
+                            ),
+                          ),
+                          Positioned(
+                            top: 40,
+                            right: 0,
+                            child: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: IconButton(
+                                  onPressed: () async {
+                                    await Share.share(
+                                      movie.title,
+                                      subject: item['homepage'],
+                                    );
+                                  },
+                                  icon: Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.black,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: const Icon(
+                                      Icons.share,
                                       color: Colors.green,
                                       size: 27,
                                     ),
