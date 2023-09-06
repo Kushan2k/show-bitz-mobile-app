@@ -11,9 +11,9 @@ class MovieDetailsScreen extends StatelessWidget {
   final Video movie;
   const MovieDetailsScreen({super.key, required this.movie});
 
-  void lunchWeb(String _url, BuildContext context) async {
+  void lunchWeb(String u, BuildContext context) async {
     try {
-      Uri url = Uri.parse(_url);
+      Uri url = Uri.parse(u);
       bool canlunch = await canLaunchUrl(url);
 
       if (canlunch) {

@@ -150,7 +150,7 @@ class PersonDetailsScreen extends StatelessWidget {
                                 case ConnectionState.done:
                                   var data = snapshot.data;
 
-                                  print(snapshot.data);
+                                  // print(snapshot.data);
 
                                   if (data == null) {
                                     return const Center(

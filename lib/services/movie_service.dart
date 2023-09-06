@@ -10,7 +10,7 @@ abstract class MovieService {
   //get movie details by id
   static Future<Map<String, dynamic>?> loadMovieDetails(
       {required Video movie}) async {
-    var urld;
+    var urld = '';
     if (movie.type == Types.movie) {
       urld = "https://api.themoviedb.org/3/movie/${movie.id}?language=en-US";
     } else if (movie.type == Types.series) {
